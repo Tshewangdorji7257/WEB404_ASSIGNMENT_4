@@ -262,22 +262,8 @@ The exact output depended on the query construction and database syntax. A diffe
 
 Time-based tests were database-specific. Before attempting one, the database engine was identified so a compatible test could be used for that engine and the lab configuration. Multiple normal requests were compared with multiple test requests, because network or application load could also cause delays.
 
-## 7. Results and Discussion
 
-Complete the table using the actual output in the screenshots. Use **Observed**, **Not observed**, or **Inconclusive** as appropriate.
-
-| Experiment | Evidence | Result to record |
-|---|---|---|
-| Single quote | Images 11–12 | [Record the actual response] |
-| Boolean-based injection | Images 13–14 | [Compare true and false responses] |
-| UNION-based injection | Image 15 | [Record whether data, an error, or no change appeared] |
-| Error-based injection | Image 16 | [Record the actual error or response] |
-| Blind SQL injection | Images 17–18 | [Compare true and false responses] |
-| Time-based blind injection | Optional | [Record only if performed] |
-
-The experiments demonstrated different ways an application could reveal unsafe SQL query handling. However, the presence of a payload in a screenshot alone was not proof that an attack succeeded. The response was analyzed and recorded accurately.
-
-## 8. Security Impact
+## 7. Security Impact
 
 SQL injection could have serious consequences when it affected a production application:
 
@@ -289,9 +275,9 @@ SQL injection could have serious consequences when it affected a production appl
 
 The actual impact depended on the vulnerable query, database permissions, application design, and other security controls.
 
-## 9. Prevention and Mitigation
+## 8. Prevention and Mitigation
 
-### 9.1 Use parameterized queries
+### 8.1 Use parameterized queries
 
 Parameterized queries separated SQL instructions from user-supplied values. For example, in a Node.js application using a MySQL-style driver:
 
@@ -304,29 +290,29 @@ const [rows] = await connection.execute(
 
 The parameter placeholder kept the input as a value instead of directly concatenating it into the SQL command.
 
-### 9.2 Validate input
+### 8.2 Validate input
 
 Input was validated according to the expected type and format. For example, a numeric user ID was checked as a valid integer. Input validation was treated as an additional control, not a replacement for parameterized queries.
 
-### 9.3 Apply least privilege
+### 8.3 Apply least privilege
 
 The database account used by the application should have had only the permissions it required. Administrative database accounts were avoided for routine application queries.
 
-### 9.4 Handle errors safely
+### 8.4 Handle errors safely
 
 Users were shown a generic error message instead of exposed SQL statements, database paths, or stack traces. Diagnostic information was stored in protected logs.
 
-### 9.5 Perform security testing
+### 8.5 Perform security testing
 
 Database access code was reviewed and the application was tested with authorized security tests before deployment. Retesting was performed after fixes to verify that unsafe input was handled correctly.
 
-## 10. Conclusion
+## 9. Conclusion
 
 This assignment covered the setup of DVWA in a local Docker environment and the investigation of several SQL injection techniques. The tests included a single-quote input, Boolean-based injection, UNION-based injection, error-based injection, and blind SQL injection. Time-based blind SQL injection was identified as an optional extension.
 
 The main lesson was that unsafe construction of SQL queries could allow user input to change query behavior. Parameterized queries, suitable input validation, least-privilege database access, and safe error handling were identified as important defenses. The final conclusions reflected the results actually observed in the captured evidence.
 
-## 11. References
+## 10. References
 
 1. OWASP Foundation. *SQL Injection Prevention Cheat Sheet*. https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
 2. Digininja. *Damn Vulnerable Web Application (DVWA)*. https://github.com/digininja/DVWA
